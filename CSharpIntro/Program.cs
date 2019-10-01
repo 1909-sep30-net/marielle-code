@@ -9,7 +9,7 @@ namespace CSharpIntro
         {
             //Console.WriteLine("Hello World!");
             bool a = true;
-            String b = "Marielle Nolasco";
+            string b = "Marielle Nolasco";
             int c = 1;
             a = false;
             b = "Marielle Carmina Nolasco";
@@ -56,6 +56,7 @@ namespace CSharpIntro
             multi line 
             comment
              */
+             
             greet("Marielle");
             string[] weekdays = { "monday", "tuesday", "wednesday", "thursday", "friday" };
             var wordQuery = from word in weekdays
