@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace CSharpIntro
 {
@@ -55,10 +56,19 @@ namespace CSharpIntro
             multi line 
             comment
              */
-             greet("Marielle");
+            greet("Marielle");
+            string[] weekdays = { "monday", "tuesday", "wednesday", "thursday", "friday" };
+            var wordQuery = from word in weekdays
+                            where word[0] == 't'
+                            select word;
+            foreach (string s in wordQuery)
+            {
+                Console.WriteLine(s);
+            }
         }
-        static void greet(string s){
-            Console.WriteLine("Nice to meet you " + s);
+        static void greet(string s)
+        {
+            Console.WriteLine("Happy to meet you " + s);
         }
     }
 }
