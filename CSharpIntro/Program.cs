@@ -34,8 +34,8 @@ namespace CSharpIntro
                 case 2:
                     Console.WriteLine("Goodbye");
                     break;
-
             }
+
             if (n == 1)
             {
                 Console.WriteLine(" I'm");
@@ -56,7 +56,7 @@ namespace CSharpIntro
             multi line 
             comment
              */
-             
+
             greet("Marielle");
             string[] weekdays = { "monday", "tuesday", "wednesday", "thursday", "friday" };
             var wordQuery = from word in weekdays
