@@ -1,15 +1,18 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PokeApp.BusinessLogic;
+using PokeApp.Data;
 
-namespace HelloMVC
+namespace PokeApp.WebApp
 {
     public class Startup
     {
@@ -18,25 +21,49 @@ namespace HelloMVC
             Configuration = configuration;
         }
 
-        //this configuration object is for reading in runtime configuration
+        // in ASP.NET 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-            // register for dependency injection
-            //set up middleware in here
         {
+            // we get the connection string from runtime configuration
+            string connectionString = Configuration.GetConnectionString("PokeDb");
+
+            // among the services you register for DI (dependency injection)
+            // should be your DbContext.
+            services.AddDbContext<PokemonDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
+            // this registers the Repository class under the "name" of IRepository.
+            // aka: "if anyone needs an IRepository, make a Repository."
+            services.AddScoped<IRepository, Repository>();
+
+            // if class A needs class B to do its job, two options:
+            // 1. somewhere in class A, we say "var b = new B()" and proceed
+            // 2. A's constructor accepts an instance of B.
+                // even better: have interface IB, accept in ctor any instance under IB
+
+            // dependency inversion principle: classes shouldn't depend on each other,
+            // instead should depend on interfaces
+
+            // "new is glue": if a class "news" another class, they are pretty inextricable,
+            //     too tightly coupled
+
+            // we have this thing called "dependency injection container" that makes dealing with
+            // option #2 easier.
+
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //plug in middle ware to the request life cycle
-            //and at the bottom, configure our routes
             if (env.IsDevelopment())
             {
-                //in Dev Environment, print the exception page
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -54,19 +81,6 @@ namespace HelloMVC
 
             app.UseEndpoints(endpoints =>
             {
-                //in this lambda expression here, we can map as many routes as we want, right now one route is mapped
-
-                //like a try catch (the way is runs)
-                endpoints.MapControllerRoute(
-                     name: "privacy",
-                    pattern: "Privacy",//matched against url
-                    defaults: new { Controller = "Home", Action = "Privacy" }
-                    //that is "anonymous type" - object without class
-                    //"web deveopler" way of tinking, just stuff the data in there
-                    // with no compile-time checking
-
-               );
-                //This is endpoint routing anohter type is attribute routing
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

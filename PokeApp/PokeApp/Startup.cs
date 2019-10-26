@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace HelloMVC
+namespace PokeApp
 {
     public class Startup
     {
@@ -18,13 +18,10 @@ namespace HelloMVC
             Configuration = configuration;
         }
 
-        //this configuration object is for reading in runtime configuration
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-            // register for dependency injection
-            //set up middleware in here
         {
             services.AddControllersWithViews();
         }
@@ -32,11 +29,8 @@ namespace HelloMVC
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //plug in middle ware to the request life cycle
-            //and at the bottom, configure our routes
             if (env.IsDevelopment())
             {
-                //in Dev Environment, print the exception page
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -54,19 +48,6 @@ namespace HelloMVC
 
             app.UseEndpoints(endpoints =>
             {
-                //in this lambda expression here, we can map as many routes as we want, right now one route is mapped
-
-                //like a try catch (the way is runs)
-                endpoints.MapControllerRoute(
-                     name: "privacy",
-                    pattern: "Privacy",//matched against url
-                    defaults: new { Controller = "Home", Action = "Privacy" }
-                    //that is "anonymous type" - object without class
-                    //"web deveopler" way of tinking, just stuff the data in there
-                    // with no compile-time checking
-
-               );
-                //This is endpoint routing anohter type is attribute routing
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

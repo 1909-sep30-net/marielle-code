@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/dotnet/core/runtime:3.0
+#WORKDIR command: like cd, except wil create the folder if necessary
+WORKDIR /app
+#copy command:
+# first argument: a relative path from the build context (usually the same as the dockerfile's folder) of what files we need to copy to
+# second argument: where in the image's file system to copy them to
+COPY  publish/ ./
+
+#CMD command:
+# this tells docker what to run on new container to start it
+
+CMD ["dotnet","ContainerDemo.dll"]

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model IEnumerable<Customer>
+
+@*What name spaces are visible from a view is governed by any @using directives, but mostly by _ViewImports *@
+@*
+Two kinds of views:
+    strongly-typed and weakly/loosely-typed
+    without the @Model directive, this would be weakly-typed
+    that @model directive enforces that this view accepts exactly that type as its model
+
+    For weakly-typed views the Model Property is a type dynamic - a special c# type which turns off all compile-time type checking
+    It pretty much works like a JS object
+
+*@
+<h1>Index</h1>
+@*THis is a razor comment*@
+@*
+    Each instance of a view can be passed one object containing all the data it wants to display that is called
+    the model of the view and is accessible here as "Model"
+
+    Let's assume that Model is a List<Customer>
+
+*@
+<table>
+    <thead>
+        <th> ID </th>
+        <th> Name</th>
+    </thead>
+    <tbody>
+        @*Model is null if you dont pass anything from the action method*@
+        @foreach(Customer customer in Model)
+        {
+            @* WHen you do @(1+1) - that's a Razor expression
+                the c# expression after the @ is evaluated , and then converted to a string
+                the string is HTML-escaped, and then placed on the page
+                *@
+            <tr>
+                <td>@customer.ID</td> 
+                <td>@customer.Name</td>
+            </tr>
+            
+        }
+    </tbody>
+</table>
+
+@*In addition to razor expressions we have Razor Blocks
+    these do not directly affect the html, these are just for c# logic
+    *@
+
+@{ 
+    //in here we write arbitrary c# maybe to compute some value that will be used in some razor expression lower down
+
+    //apart from @foreach, we have Razor Versions of every c# control flow statements
+    //like, if, else, switch, while, for, etc
+}
+@*
+    We call the thing that does the rendering the "Razor view engine"     
+
+*@

@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HelloMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelloMVC.Controllers
 {
+    [Route("accounts")] //"attribute routing"
+    //preferred for API
+    //Endpoint is preferred for MVC
     public class CustomerController : Controller
     {
         //This is an action method
@@ -22,7 +26,27 @@ namespace HelloMVC.Controllers
             //views are the kind of result that renders into html
             //"VIEW()" is a helper method from the base class that looks for
             //a view matching the name of this action method for this controller
-            return View();
+            var customers = new List<Customer>()
+            {
+                new Customer()
+                {
+                    ID = 1,
+                    Name = "Nick Enscala"
+                },
+                new Customer()
+                {
+                    ID = 2,
+                    Name = "Fred"
+                }
+            };
+            return View(customers);
+        }
+        [NonAction]
+        private void DynamicTests()
+        {
+            dynamic dynamicValue = 45;
+            dynamicValue.name = "abc";
+            //runtime problems vs compile time problems
         }
     }
 }
