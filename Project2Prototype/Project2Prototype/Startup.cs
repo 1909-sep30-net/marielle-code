@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project2Prototype.Data;
 using Project2Prototype.Data.Entities;
+using Project2Prototype.Library;
 
 namespace Project2Prototype
 {
@@ -27,7 +24,9 @@ namespace Project2Prototype
         {
             services.AddControllersWithViews();
 
-           services.AddDbContext<Project2PrototypeContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Project2PrototypeDB")));
+            services.AddDbContext<Project2PrototypeContext>(options => options.UseNpgsql(Configuration.GetConnectionString("Project2PrototypeDB")));
+            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IMapper, Mapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

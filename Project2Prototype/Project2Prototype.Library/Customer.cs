@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Project2Prototype.Library
 {
-    public class Creator
+    public class Customer
     {
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

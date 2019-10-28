@@ -8,9 +8,9 @@ namespace Project2Prototype.Data
 {
     public class Mapper : IMapper
     {
-        public Entities.Creator ParseCreator(Library.Creator creator)
+        public Entities.Customer ParseCreator(Library.Customer creator)
         {
-            return new Entities.Creator()
+            return new Entities.Customer()
             {
                 FirstName = creator.FirstName,
                 LastName = creator.LastName,
@@ -19,9 +19,9 @@ namespace Project2Prototype.Data
         }
 
         
-        public Library.Creator ParseCreator(Entities.Creator item)
+        public Library.Customer ParseCreator(Entities.Customer item)
         {
-            return new Library.Creator()
+            return new Library.Customer()
             {
                 FirstName = item.FirstName,
                 LastName = item.LastName,

@@ -2,10 +2,10 @@
 
 namespace Project2Prototype.Data.Entities
 {
-    public class Creator
+    public class Customer
     {
         [Key]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

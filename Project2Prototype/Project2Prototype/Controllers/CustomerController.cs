@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Project2Prototype.Controllers
 {
-    public class CreatorController : Controller
+    public class CustomerController : Controller
     {
         private IRepository _repository;
 
-        public CreatorController(IRepository repository)
+        public CustomerController(IRepository repository)
         {
             _repository = repository;
         }
@@ -18,7 +18,7 @@ namespace Project2Prototype.Controllers
 
         public ActionResult Index()
         {
-            List<Creator> creators = _repository.GetCreators();
+            List<Customer> creators = _repository.GetCreators();
             return View(creators);
         }
 
@@ -42,11 +42,11 @@ namespace Project2Prototype.Controllers
             try
             {
                 // TODO: Add insert logic here
-                Creator c = new Creator()
+                Customer c = new Customer()
                 {
                     FirstName = collection["FirstName"],
                     LastName = collection["LastName"],
-                    PhoneNumber = int.Parse(collection["PhoneNumber"])
+                    PhoneNumber = collection["PhoneNumber"]
                 };
                 _repository.AddCreator(c);
                 return RedirectToAction(nameof(Index));

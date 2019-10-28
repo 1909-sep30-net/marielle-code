@@ -8,7 +8,7 @@ namespace Project2Prototype.Data
 {
     public interface IMapper
     {
-        public Entities.Creator ParseCreator(BL.Creator creator);
-        public BL.Creator ParseCreator(Creator item);
+        public Entities.Customer ParseCreator(BL.Customer creator);
+        public BL.Customer ParseCreator(Customer item);
     }
 }

@@ -5,28 +5,28 @@ using System.Linq;
 
 namespace Project2Prototype.Data
 {
-    internal class Repository : IRepository
+    public class Repository : IRepository
     {
         private readonly Project2PrototypeContext _context;
         private IMapper _map;
 
-        public Repository(Project2PrototypeContext context, Mapper map)
+        public Repository(Project2PrototypeContext context, IMapper map)
         {
             _context = context;
             _map = map;
         }
 
-        public void AddCreator(Library.Creator c)
+        public void AddCreator(Library.Customer c)
         {
             _context.Creator.Add(_map.ParseCreator(c));
             _context.SaveChanges();
         }
 
-        public List<Library.Creator> GetCreators()
+        public List<Library.Customer> GetCreators()
         {
-            List<Entities.Creator> allCreators = _context.Creator.Select(c => c).ToList();
-            List<Library.Creator> allCreatorsfromDB = new List<Library.Creator>();
-            foreach (Entities.Creator item in allCreators)
+            List<Entities.Customer> allCreators = _context.Creator.Select(c => c).ToList();
+            List<Library.Customer> allCreatorsfromDB = new List<Library.Customer>();
+            foreach (Entities.Customer item in allCreators)
             {
                 allCreatorsfromDB.Add(_map.ParseCreator(item));
             }

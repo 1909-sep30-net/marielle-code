@@ -4,8 +4,8 @@ namespace Project2Prototype.Library
 {
     public interface IRepository
     {
-        public List<Creator> GetCreators();
+        public List<Customer> GetCreators();
 
-        public void AddCreator(Creator c);
+        public void AddCreator(Customer c);
     }
 }

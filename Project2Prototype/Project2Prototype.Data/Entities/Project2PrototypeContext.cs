@@ -4,11 +4,11 @@ namespace Project2Prototype.Data.Entities
 {
     public class Project2PrototypeContext : DbContext
     {
-        public DbSet<Creator> Creator { get; set; }
+        public DbSet<Customer> Creator { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Creator>()
+            modelBuilder.Entity<Customer>()
                   .Property(b => b.PhoneNumber)
                   .IsRequired();
         }
